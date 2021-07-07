@@ -68,7 +68,7 @@ const forgotPassword = async (email) => {
             to: checkEmail.email, // list of receivers
             subject: "Password Reset ✔", // Subject line
             text: "Password Reset Ramdom String",  // plain text body
-            html: `<a href="http://localhost:4200/reset/${email}/${string}">Click on this link</a>`,
+            html: `<a href="https://hopeful-einstein-5a970a.netlify.app/reset/${email}/${string}">Click on this link</a>`,
         });
         const updateString = await user.updateOne({ email: checkEmail.email }, {
             randomString: string
