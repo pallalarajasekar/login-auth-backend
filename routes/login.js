@@ -36,7 +36,7 @@ router.post('/login', async(req, res) => {
     }
 })
 
-router.put('/forgot', async(req, res) => {
+router.post('/forgot', async(req, res) => {
   try {
     const {email} = req.body;
     const response = await forgotPassword(email);

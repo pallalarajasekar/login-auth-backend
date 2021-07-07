@@ -42,16 +42,16 @@ const loginUser = async (email, password) => {
 }
 
 const forgotPassword = async (email) => {
-    console.log(email)
+    //console.log(email)
     const checkEmail = await user.findOne({ email }).exec();
     console.log(checkEmail);
     if (checkEmail) {
 
         var string = Math.random().toString(36).substr(2, 10);
-        console.log(string)
+        //console.log(string)
 
         const account = await nodemailer.createTestAccount();
-        console.log(account);
+        //console.log(account);
         const mailer = nodemailer.createTransport({
             name: 'gmail.com',
             host: "smtp.gmail.com",
@@ -70,13 +70,10 @@ const forgotPassword = async (email) => {
             text: "Password Reset Ramdom String",  // plain text body
             html: `<a href="http://localhost:4200/reset/${email}/${string}">Click on this link</a>`,
         });
-
-        console.log("Message sent: %s", info.messageId);
-        console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
         const updateString = await user.updateOne({ email: checkEmail.email }, {
             randomString: string
         });
-        console.log("update string random" + updateString);
+        //console.log("update string random" + updateString);
         const data = { status: 200, msg: "Check your email and reset your password", updateString };
         return data
     } else {
@@ -117,7 +114,7 @@ const expireString = async (email) => {
     });
 
     const data = { status: 200, msg: "Random String is expired", expire_string };
-    console.log(data);
+    //console.log(data);
 }
 
 module.exports = {
