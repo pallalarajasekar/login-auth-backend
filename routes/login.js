@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-const { getUser, registerUser, loginUser, forgotPassword } = require("../controller/login");
+const { getUser, registerUser, loginUser, forgotPassword, verfiyString, resetPassword, expireString } = require("../controller/login");
 
 /* GET users listing. */
 router.get('/', async (req, res) => {
@@ -40,6 +40,29 @@ router.put('/forgot', async(req, res) => {
   try {
     const {email} = req.body;
     const response = await forgotPassword(email);
+    res.status(response.status).json(response.msg);
+    setTimeout(expireString, 30000, email);
+  } catch (error) {
+    console.log(error);
+    res.statusCode(500);
+  }
+})
+
+router.post('/verifyString', async(req, res) => {
+  try {
+    const {email, randomString} = req.body;
+    const response = await verfiyString(email, randomString);
+    res.status(response.status).json(response.msg);
+  } catch (error) {
+    console.log(error);
+    res.statusCode(500);
+  }
+})
+
+router.put('/reset', async(req, res) => {
+  try {
+    const {email, password} = req.body;
+    const response = await resetPassword(email, password);
     res.status(response.status).json(response.msg);
   } catch (error) {
     console.log(error);
