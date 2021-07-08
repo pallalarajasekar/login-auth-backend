@@ -41,7 +41,7 @@ router.post('/forgot', async(req, res) => {
     const {email} = req.body;
     const response = await forgotPassword(email);
     res.status(response.status).json(response.msg);
-    setTimeout(expireString, 30000, email);
+    setTimeout(expireString, 300000, email);
   } catch (error) {
     console.log(error);
     res.statusCode(500);
